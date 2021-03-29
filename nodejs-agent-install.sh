@@ -35,12 +35,6 @@ fi
 # initialize pid array
 pid_array=()
 
-# app name counter
-i=2
-
-#initialize app name array
-found_app_names=()
-
 # get all node pids
 for x in $(sudo ps aux | grep "node\s." | awk '{print $2}')
 do
@@ -62,15 +56,10 @@ do
   # extract application name from package.json
   app_name=$(node -p "require('./package.json').name")
 
-  # Handle duplicate app names
-  if [[ " ${found_app_names[@]} " =~ " ${app_name} " ]]; then
-    app_name="${app_name} ${i}"
-    let i=$i+1
+  if [ -z $app_name ]; then
+    echo "No name found in package.json at ${app_loc}. Skipping instrumentation."
+    continue
   fi
-
-  # set a unique app_name
-  #TODO: we only add a number to end of duplicate name
-  found_app_names+=($app_name)
 
   # stop the application
   kill "$t"
