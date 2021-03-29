@@ -3,14 +3,9 @@
 # exit on first failure
 set -e
 
-# prob don't need
-start_dir=`pwd`
-
 error_msg="Quitting Nodejs agent installation."
 
 NODE_NEW_RELIC_CMD="node -r newrelic "
-
-install_cmd="npm install newrelic"
 
 check_yarn=0
 
@@ -23,12 +18,7 @@ type -P npm || { echo "npm not found. Checking for yarn."; check_yarn=1; }
 # check for yarn
 if [ $check_yarn -eq 1 ]; then
   type -P yarn || { echo "yarn not found. $error_msg"; exit 1; }
-
-  # set install command to yarn
-  install_cmd="yarn add newrelic"
 fi
-
-echo ">>>>>>>>>>>>>>>>>> $install_cmd"
 
 NODE_VERSION=$(node -v)
 
@@ -88,8 +78,11 @@ do
   echo "Installing New Relic Nodejs Agent for $app_name"
 
   # install the agent
-  # $($install_cmd) -- why does this seem break things
-  npm install newrelic
+  if [ $check_yarn -eq 1 ]; then
+    yarn add newrelic
+  else
+    npm install newrelic
+  fi
 
   # create new start command which loads agent
   new_cmd="${orig_cmd//node /$NODE_NEW_RELIC_CMD}"
