@@ -95,4 +95,4 @@ do
 
 done
 
-exit 1
+exit 0
