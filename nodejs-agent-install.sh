@@ -3,6 +3,9 @@
 # exit on first failure
 set -e
 
+maxNodeVersion=14
+minNodeVersion=10
+
 error_msg="Quitting Nodejs agent installation."
 
 NODE_NEW_RELIC_CMD="node -r newrelic "
@@ -25,7 +28,7 @@ NODE_VERSION=$(node -v)
 # get node major version
 [[ $NODE_VERSION =~ ^v([0-9]+)\.[0-9]+\.[0-9]+ ]] && major_version=${BASH_REMATCH[1]}
 
-if [[ "$major_version" -lt 10 || "$major_version" -gt 14 ]]; then
+if [[ "$major_version" -lt $minNodeVersion || "$major_version" -gt $maxNodeVersion ]]; then
   echo "$NODE_VERSION is not supported by the New Relic Nodejs Agent."
   echo "$error_msg"
 
