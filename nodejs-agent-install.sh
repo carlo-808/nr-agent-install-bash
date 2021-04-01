@@ -13,27 +13,27 @@ NODE_NEW_RELIC_CMD="node -r newrelic "
 check_yarn=0
 
 # check for node
-# type -P node || { echo "Nodejs not found. $error_msg" ; exit 1; }
+type -P node || { echo "Nodejs not found. $error_msg" ; exit 1; }
 
-# # check for npm
-# type -P npm || { echo "npm not found. Checking for yarn."; check_yarn=1; }
+# check for npm
+type -P npm || { echo "npm not found. Checking for yarn."; check_yarn=1; }
 
-# # check for yarn
-# if [ $check_yarn -eq 1 ]; then
-#   type -P yarn || { echo "yarn not found. $error_msg"; exit 1; }
-# fi
+# check for yarn
+if [ $check_yarn -eq 1 ]; then
+  type -P yarn || { echo "yarn not found. $error_msg"; exit 1; }
+fi
 
-# NODE_VERSION=$(node -v)
+NODE_VERSION=$(node -v)
 
-# # get node major version
-# [[ $NODE_VERSION =~ ^v([0-9]+)\.[0-9]+\.[0-9]+ ]] && major_version=${BASH_REMATCH[1]}
+# get node major version
+[[ $NODE_VERSION =~ ^v([0-9]+)\.[0-9]+\.[0-9]+ ]] && major_version=${BASH_REMATCH[1]}
 
-# if [[ "$major_version" -lt $minNodeVersion || "$major_version" -gt $maxNodeVersion ]]; then
-#   echo "$NODE_VERSION is not supported by the New Relic Nodejs Agent."
-#   echo "$error_msg"
+if [[ "$major_version" -lt $minNodeVersion || "$major_version" -gt $maxNodeVersion ]]; then
+  echo "$NODE_VERSION is not supported by the New Relic Nodejs Agent."
+  echo "$error_msg"
 
-#   exit 1
-# fi
+  exit 1
+fi
 
 # initialize pid array
 pid_array=()
