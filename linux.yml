@@ -48,15 +48,12 @@ install:
 
           NOOODE=$(ps -aux | grep "node\s." | awk '{print $11}' | grep node | head -n 1)
           $($NOOODE -v)
+
+          export PATH=$PATH:$NOOODE
+          echo ">>>>>>>>>>>>>>>>>>>>> $PATH"
           echo "_______________________________"
 
-          whereis node
-
-          echo ">>>>>>>>>>>>>>>>>>>>> $NODE_CHECK"
-
-          NODE_BIN=$(which node)
-
-          echo $($NODE_BIN -v)
+          node -v
 
           if [ -z NODE_CHECK ]; then
             echo "Nodejs not found. $error_msg";
