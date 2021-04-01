@@ -44,30 +44,26 @@ install:
           # check for node
           NODE_CHECK=$(type -P node)
 
-          if [ -z NODE_CHECK ] {
+          if [ -z NODE_CHECK ]; then
             echo "Nodejs not found. $error_msg";
             exit 1;
-          }
           fi
 
           # check for npm
           NPM_CHECK=$(type -P npm)
 
-          if [ -z NPM_CHECK ] {
+          if [ -z NPM_CHECK ]; then
             echo "npm not found. Checking for yarn.";
             check_yarn=1;
-          }
           fi
 
           # check for yarn
-          if [ $check_yarn -eq 1 ]; then {
+          if [ $check_yarn -eq 1 ]; then
             YARN_CHECK=$(type -P yarn)
-            if [ -z YARN_CHECK ] {
+            if [ -z YARN_CHECK ]; then
               echo "yarn not found. $error_msg";
               exit 1;
-            }
             fi
-          }
           fi
 
           # initialize pid array

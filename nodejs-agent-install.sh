@@ -3,10 +3,10 @@
 # exit on first failure
 set -e
 
-maxNodeVersion=14
+maxNodeVersion=16
 minNodeVersion=10
 
-error_msg="Quitting Nodejs agent installation."
+error_msg="Quitting Node.js agent installation.ss"
 
 NODE_NEW_RELIC_CMD="node -r newrelic "
 
@@ -15,38 +15,26 @@ check_yarn=0
 # check for node
 NODE_CHECK=$(type -P node)
 
-if [ -z NODE_CHECK ] {
+if [ -z NODE_CHECK ]; then
   echo "Nodejs not found. $error_msg";
   exit 1;
-}
+fi
 
 # check for npm
 NPM_CHECK=$(type -P npm)
 
-if [ -z NPM_CHECK ] {
+if [ -z NPM_CHECK ]; then
   echo "npm not found. Checking for yarn.";
   check_yarn=1;
-}
+fi
 
 # check for yarn
 if [ $check_yarn -eq 1 ]; then
   YARN_CHECK=$(type -P yarn)
-  if [ -z YARN_CHECK ] {
+  if [ -z YARN_CHECK ]; then
     echo "yarn not found. $error_msg";
     exit 1;
-  }
-fi
-
-NODE_VERSION=$(node -v)
-
-# get node major version
-[[ $NODE_VERSION =~ ^v([0-9]+)\.[0-9]+\.[0-9]+ ]] && major_version=${BASH_REMATCH[1]}
-
-if [[ "$major_version" -lt $minNodeVersion || "$major_version" -gt $maxNodeVersion ]]; then
-  echo "$NODE_VERSION is not supported by the New Relic Nodejs Agent."
-  echo "$error_msg"
-
-  exit 1
+  fi
 fi
 
 # initialize pid array
@@ -61,7 +49,7 @@ done
 # attempt to instrument each application
 for t in ${pid_array[@]}
 do
-  # get the command used to start the nodejs application
+  # get the command used to start the node.js application
   orig_cmd=$(ps -p "$t" -o args | grep node)
 
   # get the location of the application
@@ -81,7 +69,7 @@ do
   # stop the application
   kill "$t"
 
-  echo "Installing New Relic Nodejs Agent for $app_name"
+  echo "Installing New Relic Node.js Agent for $app_name"
 
   # install the agent
   if [ $check_yarn -eq 1 ]; then
