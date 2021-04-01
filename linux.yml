@@ -44,6 +44,10 @@ install:
           # check for node
           NODE_CHECK=$(type -P node)
 
+          echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
+
+          ps -aux | grep node
+
           echo "_______________________________"
 
           whereis node
