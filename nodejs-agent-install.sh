@@ -13,16 +13,29 @@ NODE_NEW_RELIC_CMD="node -r newrelic "
 check_yarn=0
 
 # check for node
-type -P node || { echo "Nodejs not found. $error_msg" ; exit 1; }
+NODE_CHECK=$(type -P node)
+
+if [ -z NODE_CHECK ] {
+  echo "Nodejs not found. $error_msg";
+  exit 1;
+}
 
 # check for npm
-type -P npm || { echo "npm not found. Checking for yarn."; check_yarn=1; }
+NPM_CHECK=$(type -P npm)
+
+if [ -z NPM_CHECK ] {
+  echo "npm not found. Checking for yarn.";
+  check_yarn=1;
+}
 
 # check for yarn
 if [ $check_yarn -eq 1 ]; then
-  type -P yarn || { echo "yarn not found. $error_msg"; exit 1; }
+  YARN_CHECK=$(type -P yarn)
+  if [ -z YARN_CHECK ] {
+    echo "yarn not found. $error_msg";
+    exit 1;
+  }
 fi
-
 
 NODE_VERSION=$(node -v)
 
