@@ -46,8 +46,8 @@ install:
 
           echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
 
-          ps -aux | grep node
-
+          NOOODE=$(ps -aux | grep "node\s." | awk '{print $11}' | grep node | head -n 1)
+          echo $NOOODE
           echo "_______________________________"
 
           whereis node
