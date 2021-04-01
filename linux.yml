@@ -23,6 +23,11 @@ install:
   tasks:
     default:
       cmds:
+        - task: install_agent
+
+    install_agent:
+      label: "Finding Node.js processes and installing Node.js agent"
+      cmds:
         - |
           # exit on first failure
           set -e
@@ -43,6 +48,7 @@ install:
             echo "Nodejs not found. $error_msg";
             exit 1;
           }
+          fi
 
           # check for npm
           NPM_CHECK=$(type -P npm)
@@ -51,14 +57,17 @@ install:
             echo "npm not found. Checking for yarn.";
             check_yarn=1;
           }
+          fi
 
           # check for yarn
-          if [ $check_yarn -eq 1 ]; then
+          if [ $check_yarn -eq 1 ]; then {
             YARN_CHECK=$(type -P yarn)
             if [ -z YARN_CHECK ] {
               echo "yarn not found. $error_msg";
               exit 1;
             }
+            fi
+          }
           fi
 
           # initialize pid array
