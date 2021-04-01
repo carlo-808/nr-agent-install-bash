@@ -23,6 +23,7 @@ if [ $check_yarn -eq 1 ]; then
   type -P yarn || { echo "yarn not found. $error_msg"; exit 1; }
 fi
 
+
 NODE_VERSION=$(node -v)
 
 # get node major version

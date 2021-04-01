@@ -35,7 +35,7 @@ install:
           maxNodeVersion=14
           minNodeVersion=10
 
-          error_msg="Quitting Node.js agent installation."
+          error_msg="Quitting Node.js agent installation.ss"
 
           NODE_NEW_RELIC_CMD="node -r newrelic "
 
