@@ -44,6 +44,10 @@ install:
           # check for node
           NODE_CHECK=$(type -P node)
 
+          echo "_______________________________"
+
+          whereis node
+
           echo ">>>>>>>>>>>>>>>>>>>>> $NODE_CHECK"
 
           NODE_BIN=$(which node)
