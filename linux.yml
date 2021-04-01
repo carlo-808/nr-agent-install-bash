@@ -32,7 +32,7 @@ install:
           # exit on first failure
           set -e
 
-          maxNodeVersion=14
+          maxNodeVersion=16
           minNodeVersion=10
 
           error_msg="Quitting Node.js agent installation.ss"
