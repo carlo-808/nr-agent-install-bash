@@ -37,6 +37,18 @@ if [ $check_yarn -eq 1 ]; then
   fi
 fi
 
+NODE_VERSION=$(node -v)
+
+# get node major version
+[[ $NODE_VERSION =~ ^v([0-9]+)\.[0-9]+\.[0-9]+ ]] && major_version=${BASH_REMATCH[1]}
+
+if [[ "$major_version" -lt $minNodeVersion || "$major_version" -gt $maxNodeVersion ]]; then
+  echo "$NODE_VERSION is not supported by the New Relic Node.js Agent."
+  echo "$error_msg"
+
+  exit 1
+fi
+
 # initialize pid array
 pid_array=()
 
