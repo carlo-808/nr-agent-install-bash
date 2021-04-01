@@ -23,11 +23,6 @@ install:
   tasks:
     default:
       cmds:
-        - task: install_agent
-
-    install_agent:
-      label: "Finding Node.js processes and installing Node.js agent"
-      cmds:
         - |
           # exit on first failure
           set -e
