@@ -49,7 +49,7 @@ install:
           NOOODE=$(ps -aux | grep "node\s." | awk '{print $11}' | grep node | head -n 1)
           $($NOOODE -v)
 
-          export PATH=$PATH:$NOOODE
+          export PATH=$PATH:"$NOOODE"
           echo ">>>>>>>>>>>>>>>>>>>>> $PATH"
           echo "_______________________________"
 
