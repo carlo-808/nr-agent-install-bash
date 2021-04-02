@@ -3,10 +3,10 @@
 # exit on first failure
 set -e
 
-maxNodeVersion=16
+maxNodeVersion=14
 minNodeVersion=10
 
-error_msg="Quitting Node.js agent installation.ss"
+error_msg="Quitting Node.js agent installation."
 
 NODE_NEW_RELIC_CMD="node -r newrelic "
 
