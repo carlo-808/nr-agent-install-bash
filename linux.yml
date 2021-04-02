@@ -42,7 +42,13 @@ install:
           check_yarn=0
 
           # check for node
-          NODE_CHECK=$(type -P node)
+          NODE_CHECK=$(node -v)
+
+          echo ">>>>>>>>>>>>> $NODE_CHECK"
+
+          if [ -z $NODE_CHECK ]; then
+            echo "huzzah!"
+          fi
 
           echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
 
