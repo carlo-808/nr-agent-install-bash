@@ -29,19 +29,37 @@ install:
       label: "Finding Node.js processes and installing Node.js agent"
       cmds:
         - |
+          # exit on first failure
           set -e
 
-          maxNodeVersion=14
+          maxNodeVersion=16
           minNodeVersion=10
 
-          error_msg="Quitting Node.js agent installation."
+          error_msg="Quitting Node.js agent installation.ss"
 
           NODE_NEW_RELIC_CMD="node -r newrelic "
 
           check_yarn=0
 
           # check for node
-          NODE_CHECK=$(type -P node)
+          NODE_CHECK=$(node -v)
+
+          echo ">>>>>>>>>>>>> $NODE_CHECK"
+
+          if [ -z $NODE_CHECK ]; then
+            echo "huzzah!"
+          fi
+
+          echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
+
+          NOOODE=$(ps -aux | grep "node\s." | awk '{print $11}' | grep node | head -n 1)
+          $($NOOODE -v)
+
+          export PATH="$PATH:$NOOODE"
+          echo ">>>>>>>>>>>>>>>>>>>>> $PATH"
+          echo "_______________________________"
+
+          node -v
 
           if [ -z NODE_CHECK ]; then
             echo "Nodejs not found. $error_msg";
