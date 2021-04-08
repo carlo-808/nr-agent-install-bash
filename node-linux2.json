@@ -16,40 +16,40 @@
   ],
   "services": [
     {
-      "id": "nodetron",
-      "source_repository": "https://github.com/newrelic/demo-nodetron.git",
-      "deploy_script_path": "deploy/linux/roles",
+      "id": "node1",
+      "display_name": "Node App 1",
+      "source_repository": "-b replace_supervisord_with_pm2 https://github.com/newrelic/demo-nodetron",
+      "deploy_script_path": "/deploy/linux/roles",
       "port": 5001,
-      "destinations": [
-        "host1"
-      ],
+      "relationships": [],
+      "destinations": ["host1"],
       "files": [
         {
           "destination_filepath": "engine/cronjob.json",
           "content": [
             {
               "frequency": "* * * * *",
-              "job": "for ((i=1;i<=30;i++)); do curl '[service:nodetron:url]/'; curl '[service:nodetron:url]/api/inventory'; sleep 1; done"
+              "job": "for ((i=1;i<=30;i++)); do curl '[service:node1:url]/'; curl '[service:node1:url]/api/inventory'; sleep 1; done"
             }
           ]
         }
       ]
     },
     {
-      "id": "nodetron2",
-      "source_repository": "https://github.com/newrelic/demo-nodetron.git",
-      "deploy_script_path": "deploy/linux/roles",
+      "id": "node2",
+      "display_name": "Node App 2",
+      "source_repository": "-b replace_supervisord_with_pm2 https://github.com/newrelic/demo-nodetron",
+      "deploy_script_path": "/deploy/linux/roles",
       "port": 5002,
-      "destinations": [
-        "host1"
-      ],
+      "relationships": [],
+      "destinations": ["host1"],
       "files": [
         {
           "destination_filepath": "engine/cronjob.json",
           "content": [
             {
               "frequency": "* * * * *",
-              "job": "for ((i=1;i<=30;i++)); do curl '[service:nodetron:url]/'; curl '[service:nodetron:url]/api/inventory'; sleep 1; done"
+              "job": "for ((i=1;i<=30;i++)); do curl '[service:node1:url]/'; curl '[service:node1:url]/api/inventory'; sleep 1; done"
             }
           ]
         }
